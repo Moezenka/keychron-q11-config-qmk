@@ -38,7 +38,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         RM_TOGG,  _______,  KC_BRID,    KC_BRIU,    KC_MCTL,    KC_LPAD,  RM_VALD,          RM_VALU,    /*|SPLIT|*/     KC_MPRV,    KC_MPLY,  KC_MNXT,  KC_MUTE,  KC_VOLD,    KC_VOLU,  _______,   _______, C(KC_0),
         _______,  _______,  _______,    _______,    _______,    _______,  _______,          _______,    /*|SPLIT|*/     C(KC_INS),  _______,  _______,  _______,  S(KC_IN),   _______,  _______,            KC_PSCR,
         _______,  _______,  RALT(KC_7), KC_CIRC,    S(KC_NUHS), KC_ASTR,  RALT(KC_0),       _______,    /*|SPLIT|*/     _______,    _______,  _______,  _______,  _______,    _______,                      _______,
-        _______,  _______,  KC_GT,      RALT(KC_4), KC_PERC,    M2,       KC_INT1,          _______,    /*|SPLIT|*/     JUMP_L,     _______,  _______,  JUMP_R,   _______,    _______,  _______,            _______,
+        _______,  _______,  KC_GT,      RALT(KC_4), KC_PERC,    C_CARET,  KC_INT1,          _______,    /*|SPLIT|*/     JUMP_L,     _______,  _______,  JUMP_R,   _______,    _______,  _______,            _______,
         _______,  _______,  _______,    RALT(KC_0), KC_EXLM,    KC_HASH,  RALT(KC_NUBS),    _______,    /*|SPLIT|*/     _______,    _______,  _______,  _______,  _______,              _______,  _______,
         _______,  _______,  _______,    _______,    _______,              KC_ASTR,                      /*|SPLIT|*/                 KC_LPRN,            _______,  _______,    _______,  _______,  _______,  _______),
 
@@ -88,9 +88,16 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case JUMP_L:
             if (record->event.pressed) {
                 if (get_mods() & MOD_MASK_SHIFT) {
-                    SEND_STRING(SS_LCTL(SS_TAP(X_LEFT)));
+                    // Press Ctrl
+                    register_code(KC_LCTL);
+                    // Tap Left Arrow
+                    register_code(KC_LEFT);
+                    unregister_code(KC_LEFT);
+                    // Release Ctrl
+                    unregister_code(KC_LCTL);
                 } else {
-                    SEND_STRING(SS_TAP(X_HOME));
+                    // Keypress Home
+                    tap_code(KC_HOME);
                 }
             }
             return false;
@@ -98,9 +105,30 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case JUMP_R:
             if (record->event.pressed) {
                 if (get_mods() & MOD_MASK_SHIFT) {
-                    SEND_STRING(SS_LCTL(SS_TAP(X_RIGHT)));
+                    // Hold Ctrl
+                    register_code(KC_LCTL);
+                    // Tap Left Arrow
+                    register_code(KC_RIGHT);
+                    unregister_code(KC_RIGHT);
+                    // Release Ctrl
+                    unregister_code(KC_LCTL);
                 } else {
-                    SEND_STRING(SS_TAP(X_END));
+                    // Keypress End
+                    tap_code(KC_END);
+                }
+            }
+            return false;
+
+        case C_CARET:
+            if (record->event.pressed) {
+                    // Hold Shift
+                    register_code(KC_LSFT);
+                    // Tap Left Bracket (^)
+                    tap_code(KC_RBRC);
+                    // Release Shift
+                    unregister_code(KC_LSFT);
+                    // Tap Space
+                    tap_code(KC_SPC);
                 }
             }
             return false;
