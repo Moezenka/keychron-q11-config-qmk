@@ -16,10 +16,10 @@
 #include QMK_KEYBOARD_H
 
 enum layers{
-    MAC_BASE,
-    MAC_FN,
-    WIN_BASE,
-    WIN_FN,
+    ONE,
+    TWO,
+    THREE,
+    FOUR,
 };
 
 #define KC_TASK LGUI(KC_TAB)
