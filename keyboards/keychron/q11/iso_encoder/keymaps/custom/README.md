@@ -12,3 +12,5 @@ qmk new-keymap -kb keychron/q11/iso_encoder
 # How to build
 qmk compile -kb keychron/q11/iso_encoder -km custom
 
+# Flash keyboard
+qmk flash -kb keychron/q11/iso_encoder -km custom

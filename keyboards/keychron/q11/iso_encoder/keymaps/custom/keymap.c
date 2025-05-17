@@ -22,6 +22,12 @@ enum layers{
     FOUR,
 };
 
+enum custom_keycodes {
+    JUMP_L = SAFE_RANGE,
+    JUMP_R,
+    C_CARET,
+};
+
 #define KC_TASK LGUI(KC_TAB)
 #define KC_FLXP LGUI(KC_E)
 
@@ -36,19 +42,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [TWO] = LAYOUT_92_iso(
         RM_TOGG,  _______,  KC_BRID,    KC_BRIU,    KC_MCTL,    KC_LPAD,  RM_VALD,          RM_VALU,    /*|SPLIT|*/     KC_MPRV,    KC_MPLY,  KC_MNXT,  KC_MUTE,  KC_VOLD,    KC_VOLU,  _______,   _______, C(KC_0),
-        _______,  _______,  _______,    _______,    _______,    _______,  _______,          _______,    /*|SPLIT|*/     C(KC_INS),  _______,  _______,  _______,  S(KC_IN),   _______,  _______,            KC_PSCR,
+        _______,  _______,  _______,    _______,    _______,    _______,  _______,          _______,    /*|SPLIT|*/     C(KC_INS),  _______,  _______,  _______,  S(KC_INS),  _______,  _______,            KC_PSCR,
         _______,  _______,  RALT(KC_7), KC_CIRC,    S(KC_NUHS), KC_ASTR,  RALT(KC_0),       _______,    /*|SPLIT|*/     _______,    _______,  _______,  _______,  _______,    _______,                      _______,
         _______,  _______,  KC_GT,      RALT(KC_4), KC_PERC,    C_CARET,  KC_INT1,          _______,    /*|SPLIT|*/     JUMP_L,     _______,  _______,  JUMP_R,   _______,    _______,  _______,            _______,
         _______,  _______,  _______,    RALT(KC_0), KC_EXLM,    KC_HASH,  RALT(KC_NUBS),    _______,    /*|SPLIT|*/     _______,    _______,  _______,  _______,  _______,              _______,  _______,
         _______,  _______,  _______,    _______,    _______,              KC_ASTR,                      /*|SPLIT|*/                 KC_LPRN,            _______,  _______,    _______,  _______,  _______,  _______),
 
     [THREE] = LAYOUT_92_iso(
-        KC_MUTE,  KC_ESC,   KC_F1,    KC_F2,    KC_F3,    KC_F4,    KC_F5,     KC_F6,    KC_8,    KC_F9,    KC_F10,   KC_F11,     KC_F12,   KC_INS,   KC_DEL,   KC_MUTE,
+        KC_MUTE,  KC_ESC,   KC_F1,    KC_F2,    KC_F3,    KC_F4,    KC_F5,     KC_F6,    KC_F7,    KC_F8,    KC_F9,    KC_F10,   KC_F11,     KC_F12,   KC_INS,   KC_DEL,   KC_MUTE,
         _______,  KC_GRV,   KC_1,     KC_2,     KC_3,     KC_4,     KC_5,      KC_6,     KC_7,     KC_8,     KC_9,     KC_0,     KC_MINS,    KC_EQL,   KC_BSPC,            KC_PGUP,
         _______,  KC_TAB,   KC_Q,     KC_W,     KC_E,     KC_R,     KC_T,      KC_Y,     KC_U,     KC_I,     KC_O,     KC_P,     KC_LBRC,    KC_RBRC,                      KC_PGDN,
         _______,  KC_CAPS,  KC_A,     KC_S,     KC_D,     KC_F,     KC_G,      KC_H,     KC_J,     KC_K,     KC_L,     KC_SCLN,  KC_QUOT,    KC_NUHS,  KC_ENT,             KC_HOME,
         _______,  KC_LSFT,  KC_NUBS,  KC_Z,     KC_X,     KC_C,     KC_V,      KC_B,     KC_N,     KC_M,     KC_COMM,  KC_DOT,   KC_SLSH,              KC_RSFT,  KC_UP,
-        _______,  KC_LCTL,  KC_LWIN,  KC_LALT,  MO(WIN_FN),         KC_SPC,                        KC_SPC,             KC_RALT,  MO(WIN_FN), KC_RCTL,  KC_LEFT,  KC_DOWN,  KC_RGHT),
+        _______,  KC_LCTL,  KC_LWIN,  KC_LALT,  MO(FOUR),           KC_SPC,                        KC_SPC,             KC_RALT,  MO(FOUR),   KC_RCTL,  KC_LEFT,  KC_DOWN,  KC_RGHT),
 
     [FOUR] = LAYOUT_92_iso(
         RM_TOGG,  _______,  KC_BRID,  KC_BRIU,  KC_TASK,  KC_FLXP,  RM_VALD,   RM_VALU,  KC_MPRV,  KC_MPLY,  KC_MNXT,  KC_MUTE,  KC_VOLD,    KC_VOLU,  _______,  _______,  RM_TOGG,
@@ -70,19 +76,26 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
 
 // CUSTOM FUNCTIONS
 layer_state_t layer_state_set_user(layer_state_t state) {
-    switch (get_highest_layer(state)) {
+    switch (get_highest_layer(state)) {  // Use get_highest_layer() instead of biton32()
         case ONE:
-            rgblight_setrgb(RGB_BLUE);
+            rgblight_sethsv(HSV_BLUE);    // Red for layer ONE
             break;
         case TWO:
-            rgblight_setrgb(RGB_RED);
+            rgblight_sethsv(HSV_RED);  // Green for layer TWO
             break;
-        default:
-            rgblight_setrgb (RGB_BLUE);
+        case THREE:
+            rgblight_sethsv(HSV_PURPLE);   // Blue for layer THREE
+            break;
+        case FOUR:
+            rgblight_sethsv(HSV_ORANGE); // Purple for layer FOUR
+            break;
+        default: // Default layer (usually layer 0)
+            rgblight_sethsv(HSV_WHITE);  // White for default layer
             break;
     }
     return state;
 }
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case JUMP_L:
@@ -129,7 +142,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                     unregister_code(KC_LSFT);
                     // Tap Space
                     tap_code(KC_SPC);
-                }
             }
             return false;
     }
