@@ -23,9 +23,10 @@ enum layers{
 };
 
 enum custom_keycodes {
-    JUMP_L = SAFE_RANGE,
-    JUMP_R,
+    JUMP_H = SAFE_RANGE,
+    JUMP_L,
     C_CARET,
+    C_TILDE,
 };
 
 #define KC_TASK LGUI(KC_TAB)
@@ -35,17 +36,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [ONE] = LAYOUT_92_iso(
         KC_MUTE,  KC_ESC,   KC_F1,      KC_F2,      KC_F3,      KC_F4,    KC_F5,            KC_F6,      /*|SPLIT|*/     KC_F7,      KC_F8,    KC_F9,    KC_F10,   KC_F11,     KC_F12,   KC_INS,   KC_DEL,   KC_MUTE,
         _______,  KC_GRV,   KC_1,       KC_2,       KC_3,       KC_4,     KC_5,             KC_6,       /*|SPLIT|*/     KC_7,       KC_8,     KC_9,     KC_0,     KC_MINS,    KC_EQL,   KC_BSPC,            KC_PGUP,
-        _______,  KC_TAB,   KC_Q,       KC_W,       KC_E,       KC_R,     KC_T,             KC_Y,       /*|SPLIT|*/     KC_U,       KC_I,     KC_O,     KC_P,     KC_LBRC,    KC_RBRC,                      KC_PGDN,
-        _______,  KC_ESC,   KC_A,       KC_S,       KC_D,       KC_F,     KC_G,             KC_H,       /*|SPLIT|*/     KC_J,       KC_K,     KC_L,     KC_SCLN,  KC_QUOT,    KC_NUHS,  KC_ENT,             KC_HOME,
+        _______,  KC_TAB,   KC_Q,       KC_W,       KC_E,       KC_R,     KC_T,                         /*|SPLIT|*/     KC_Y,       KC_U,     KC_I,     KC_O,     KC_P,       KC_LBRC,  KC_RBRC,                      KC_PGDN,
+        _______,  KC_ESC,   KC_A,       KC_S,       KC_D,       KC_F,     KC_G,                         /*|SPLIT|*/     KC_H,       KC_J,     KC_K,     KC_L,     KC_SCLN,    KC_QUOT,  KC_NUHS,  KC_ENT,             KC_HOME,
         _______,  KC_LSFT,  KC_NUBS,    KC_Z,       KC_X,       KC_C,     KC_V,             KC_B,       /*|SPLIT|*/     KC_N,       KC_M,     KC_COMM,  KC_DOT,   KC_SLSH,              KC_RSFT,  KC_UP,
         _______,  KC_LCTL,  KC_LWIN,    KC_LALT,    MO(TWO),              KC_SPC,                       /*|SPLIT|*/                 KC_SPC,             KC_RALT,  MO(TWO),    KC_RCTL,  KC_LEFT,  KC_DOWN,  KC_RGHT),
 
     [TWO] = LAYOUT_92_iso(
         RM_TOGG,  _______,  KC_BRID,    KC_BRIU,    KC_MCTL,    KC_LPAD,  RM_VALD,          RM_VALU,    /*|SPLIT|*/     KC_MPRV,    KC_MPLY,  KC_MNXT,  KC_MUTE,  KC_VOLD,    KC_VOLU,  _______,   _______, C(KC_0),
         _______,  _______,  _______,    _______,    _______,    _______,  _______,          _______,    /*|SPLIT|*/     C(KC_INS),  _______,  _______,  _______,  S(KC_INS),  _______,  _______,            KC_PSCR,
-        _______,  _______,  RALT(KC_7), KC_CIRC,    S(KC_NUHS), KC_ASTR,  RALT(KC_0),       _______,    /*|SPLIT|*/     _______,    _______,  _______,  _______,  _______,    _______,                      _______,
-        _______,  _______,  KC_GT,      RALT(KC_4), KC_PERC,    C_CARET,  KC_INT1,          _______,    /*|SPLIT|*/     JUMP_L,     _______,  _______,  JUMP_R,   _______,    _______,  _______,            _______,
-        _______,  _______,  _______,    RALT(KC_0), KC_EXLM,    KC_HASH,  RALT(KC_NUBS),    _______,    /*|SPLIT|*/     _______,    _______,  _______,  _______,  _______,              _______,  _______,
+        _______,  _______,  RALT(KC_7), KC_CIRC,    S(KC_NUHS), KC_ASTR,  RALT(KC_0),                   /*|SPLIT|*/     _______,    _______,  _______,  _______,  _______,    _______,  _______,                      _______,
+        _______,  _______,  KC_GT,      RALT(KC_4), KC_PERC,    C_CARET,  S(KC_5),                      /*|SPLIT|*/     JUMP_H,     _______,  _______,  JUMP_L,   _______,    _______,  _______,  _______,            _______,
+        _______,  _______,  C_TILDE,    KC_EXLM,    RALT(KC_2), KC_HASH,  RALT(KC_NUBS),    _______,    /*|SPLIT|*/     _______,    _______,  _______,  _______,  _______,              _______,  _______,
         _______,  _______,  _______,    _______,    _______,              KC_ASTR,                      /*|SPLIT|*/                 KC_LPRN,            _______,  _______,    _______,  _______,  _______,  _______),
 
     [THREE] = LAYOUT_92_iso(
@@ -67,7 +68,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 #if defined(ENCODER_MAP_ENABLE)
 const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
-    [ONE]   = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU), ENCODER_CCW_CW(KC_VOLD, KC_VOLU) },
+    [ONE]   = { ENCODER_CCW_CW(RGB_VAD, RGB_VAI), ENCODER_CCW_CW(KC_VOLD, KC_VOLU) },
     [TWO]   = { ENCODER_CCW_CW(RGB_VAD, RGB_VAI), ENCODER_CCW_CW(C(KC_MS_WH_DOWN), C(KC_MS_WH_UP)) },
     [THREE] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU), ENCODER_CCW_CW(KC_VOLD, KC_VOLU) },
     [FOUR]  = { ENCODER_CCW_CW(RM_VALD, RM_VALU), ENCODER_CCW_CW(RM_VALD, RM_VALU) }
@@ -75,58 +76,58 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
 #endif // ENCODER_MAP_ENABLE
 
 // CUSTOM FUNCTIONS
+void keyboard_post_init_user(void) {
+    rgb_matrix_enable();
+    rgb_matrix_mode(RGB_MATRIX_SOLID_COLOR);
+}
+
 layer_state_t layer_state_set_user(layer_state_t state) {
-    switch (get_highest_layer(state)) {  // Use get_highest_layer() instead of biton32()
+    uint8_t current_val = rgb_matrix_get_val();
+
+    switch (get_highest_layer(state)) {
         case ONE:
-            rgblight_sethsv(HSV_BLUE);    // Red for layer ONE
+            rgb_matrix_mode_noeeprom(RGB_MATRIX_SOLID_COLOR);
+            rgb_matrix_sethsv(HSV_BLUE);
             break;
         case TWO:
-            rgblight_sethsv(HSV_RED);  // Green for layer TWO
+            rgb_matrix_mode_noeeprom(RGB_MATRIX_SOLID_COLOR);
+            rgb_matrix_sethsv(HSV_RED);
             break;
-        case THREE:
-            rgblight_sethsv(HSV_PURPLE);   // Blue for layer THREE
-            break;
-        case FOUR:
-            rgblight_sethsv(HSV_ORANGE); // Purple for layer FOUR
-            break;
-        default: // Default layer (usually layer 0)
-            rgblight_sethsv(HSV_WHITE);  // White for default layer
+        default:
+            rgb_matrix_mode_noeeprom(RGB_MATRIX_SOLID_COLOR);
+            rgb_matrix_sethsv(HSV_BLUE);
             break;
     }
+    rgb_matrix_sethsv(rgb_matrix_get_hue(), rgb_matrix_get_sat(), current_val);
     return state;
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    const uint8_t mods = get_mods();
+    const uint8_t oneshot_mods = get_oneshot_mods();
+
     switch (keycode) {
-        case JUMP_L:
+        case JUMP_H:
             if (record->event.pressed) {
-                if (get_mods() & MOD_MASK_SHIFT) {
-                    // Press Ctrl
-                    register_code(KC_LCTL);
-                    // Tap Left Arrow
-                    register_code(KC_LEFT);
-                    unregister_code(KC_LEFT);
-                    // Release Ctrl
-                    unregister_code(KC_LCTL);
+                if ((mods | oneshot_mods) & MOD_MASK_CTRL) {
+                    clear_oneshot_mods();
+                    unregister_mods(MOD_MASK_CSAG);
+                    tap_code16(C(KC_LEFT));
+                    register_mods(mods);
                 } else {
-                    // Keypress Home
                     tap_code(KC_HOME);
                 }
             }
             return false;
 
-        case JUMP_R:
+        case JUMP_L:
             if (record->event.pressed) {
-                if (get_mods() & MOD_MASK_SHIFT) {
-                    // Hold Ctrl
-                    register_code(KC_LCTL);
-                    // Tap Left Arrow
-                    register_code(KC_RIGHT);
-                    unregister_code(KC_RIGHT);
-                    // Release Ctrl
-                    unregister_code(KC_LCTL);
+                if ((mods | oneshot_mods) & MOD_MASK_CTRL) {
+                    clear_oneshot_mods();
+                    unregister_mods(MOD_MASK_CSAG);
+                    tap_code16(C(KC_RGHT));
+                    register_mods(mods);
                 } else {
-                    // Keypress End
                     tap_code(KC_END);
                 }
             }
@@ -140,6 +141,19 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                     tap_code(KC_RBRC);
                     // Release Shift
                     unregister_code(KC_LSFT);
+                    // Tap Space
+                    tap_code(KC_SPC);
+            }
+            return false;
+
+        case C_TILDE:
+            if (record->event.pressed) {
+                    // Hold RALT
+                    register_code(KC_RALT);
+                    // Tap Left
+                    tap_code(KC_RBRC);
+                    // Release RALT
+                    unregister_code(KC_RALT);
                     // Tap Space
                     tap_code(KC_SPC);
             }
