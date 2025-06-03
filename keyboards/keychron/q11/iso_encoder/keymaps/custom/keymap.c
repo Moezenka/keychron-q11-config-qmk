@@ -110,12 +110,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case JUMP_H:
             if (record->event.pressed) {
                 if ((mods | oneshot_mods) & MOD_MASK_CTRL) {
-                    tap_code(KC_HOME);
-                } else {
                     clear_oneshot_mods();
                     unregister_mods(MOD_MASK_CSAG);
-                    tap_code16(C(KC_LEFT));
+                    tap_code(KC_HOME);
                     register_mods(mods); 
+                } else {
+                    tap_code16(C(KC_LEFT));
                 }
             }
             return false;
@@ -123,12 +123,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case JUMP_L:
             if (record->event.pressed) {
                 if ((mods | oneshot_mods) & MOD_MASK_CTRL) {
-                    tap_code(KC_END);
-                } else {
                     clear_oneshot_mods();
                     unregister_mods(MOD_MASK_CSAG);
-                    tap_code16(C(KC_RGHT));
+                    tap_code(KC_END);
                     register_mods(mods);
+                } else {
+                    tap_code16(C(KC_RGHT));
                 }
             }
             return false;
