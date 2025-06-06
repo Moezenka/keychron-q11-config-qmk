@@ -19,7 +19,13 @@ qmk compile -kb keychron/q11/iso_encoder -km custom
 ```
 
 # Flash keyboard
+Unplug the power cable from the keyboard.
+Remove the space bar keycap to find the reset button on the left side of the space bar switch on the PCB.
+Insert a pin in the whole which does not have a LED light and insert the power cable.
+
 INFO: Use the QMK Toolbox as it is more reliable
 ```sh
 qmk flash -kb keychron/q11/iso_encoder -km custom
 ```
+
+If you are using the QMK Toolbox, select the `.bin` file and flash the keyboard, both sides will be flashed.
