@@ -103,33 +103,27 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    const uint8_t mods = get_mods();
-    const uint8_t oneshot_mods = get_oneshot_mods();
+    // const uint8_t mods = get_mods();
+    // const uint8_t oneshot_mods = get_oneshot_mods();
 
     switch (keycode) {
         case JUMP_H:
             if (record->event.pressed) {
-                if ((mods | oneshot_mods) & MOD_MASK_CTRL) {
-                    clear_oneshot_mods();
-                    unregister_mods(MOD_MASK_CSAG);
-                    tap_code(KC_HOME);
-                    register_mods(mods); 
-                } else {
-                    tap_code16(C(KC_LEFT));
-                }
+                register_mods(MOD_BIT(KC_LCTL));
+                register_code(KC_LEFT);
+            } else {
+                unregister_code(KC_LEFT);
+                unregister_mods(MOD_BIT(KC_LCTL));
             }
             return false;
 
         case JUMP_L:
             if (record->event.pressed) {
-                if ((mods | oneshot_mods) & MOD_MASK_CTRL) {
-                    clear_oneshot_mods();
-                    unregister_mods(MOD_MASK_CSAG);
-                    tap_code(KC_END);
-                    register_mods(mods);
-                } else {
-                    tap_code16(C(KC_RGHT));
-                }
+                register_mods(MOD_BIT(KC_LCTL));
+                register_code(KC_RIGHT);
+            } else {
+                unregister_code(KC_RIGHT);
+                unregister_mods(MOD_BIT(KC_LCTL));
             }
             return false;
 
