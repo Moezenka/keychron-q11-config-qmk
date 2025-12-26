@@ -45,7 +45,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         RM_TOGG,  _______,  KC_BRID,    KC_BRIU,    KC_MCTL,    KC_LPAD,  RM_VALD,          RM_VALU,    /*|SPLIT|*/     KC_MPRV,    KC_MPLY,  KC_MNXT,  KC_MUTE,  KC_VOLD,    KC_VOLU,  _______,   _______, C(KC_0),
         _______,  _______,  _______,    _______,    _______,    _______,  _______,          _______,    /*|SPLIT|*/     _______,    _______,  _______,  _______,  _______,    _______,  _______,            KC_PSCR,
         _______,  _______,  RALT(KC_7), KC_CIRC,    S(KC_NUHS), KC_ASTR,  RALT(KC_0),                   /*|SPLIT|*/     C(KC_INS),  _______,  _______,  _______,  S(KC_INS),  _______,  _______,                      _______,
-        _______,  _______,  KC_GT,      RALT(KC_4), KC_PERC,    C_CARET,  S(KC_5),                      /*|SPLIT|*/     JUMP_H,     _______,  _______,  JUMP_L,   _______,    _______,  _______,  _______,            _______,
+        _______,  _______,  KC_GT,      RALT(KC_4), KC_PERC,    C_CARET,  S(KC_5),                      /*|SPLIT|*/     JUMP_H,     KC_DOWN,  KC_UP,    JUMP_L,   _______,    _______,  _______,  _______,            _______,
         _______,  _______,  C_TILDE,    KC_EXLM,    RALT(KC_2), KC_HASH,  RALT(KC_NUBS),    _______,    /*|SPLIT|*/     _______,    _______,  _______,  _______,  _______,              _______,  _______,
         _______,  _______,  _______,    _______,    _______,              KC_ASTR,                      /*|SPLIT|*/                 KC_LPRN,            _______,  _______,    _______,  _______,  _______,  _______),
 
@@ -69,7 +69,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 #if defined(ENCODER_MAP_ENABLE)
 const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
     [ONE]   = { ENCODER_CCW_CW(RM_VALD, RM_VALU), ENCODER_CCW_CW(KC_VOLD, KC_VOLU) },
-    [TWO]   = { ENCODER_CCW_CW(RM_VALD, RM_VALU), ENCODER_CCW_CW(C(MS_WHLD), C(MS_WHLD)) },
+    [TWO]   = { ENCODER_CCW_CW(RM_VALD, RM_VALU), ENCODER_CCW_CW(C(MS_WHLD), C(MS_WHLU)) },
     [THREE] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU), ENCODER_CCW_CW(KC_VOLD, KC_VOLU) },
     [FOUR]  = { ENCODER_CCW_CW(RM_VALD, RM_VALU), ENCODER_CCW_CW(RM_VALD, RM_VALU) }
 };
